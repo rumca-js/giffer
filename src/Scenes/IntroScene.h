@@ -9,6 +9,8 @@
 #define INITSCENE_H_
 
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL.h>
+#include <vector>
 
 #include "../SceneInterface.h"
 #include "../MainConfiguration.h"
@@ -31,16 +33,15 @@ class IntroScene : public SceneInterface {
 	 */
 	MainConfiguration * config;
 	/*!
-	 * \brief logo texture.
-	 */
-	SDL_Texture* logo;
-	/*!
 	 * Timer for displaying logo.
 	 */
 	SDL_TimerID my_timer_id;
 
 	/*! Gif file */
 	GIF_Image* gif;
+	
+	/*! textures */
+	std::vector<SDL_Texture*> textures;
 
 public:
 	/*!

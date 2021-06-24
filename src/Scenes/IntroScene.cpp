@@ -5,42 +5,16 @@
  *      Author: hunter
  */
 
+#include <iostream>
 #include "IntroScene.h"
 
 #include "../config.h"
 
 
-
-Uint32 my_callbackfunc1(Uint32 interval, void *param) {
-    static int counter = 0;
-
-    counter ++;
-
-    SDL_Event event;
-    SDL_UserEvent userevent;
-
-    /* In this example, our callback pushes an SDL_USEREVENT event
-    into the queue, and causes our callback to be called again at the
-    same interval: */
-
-    userevent.type = SDL_USEREVENT;
-    userevent.code = counter;
-    userevent.data1 = NULL;
-    userevent.data2 = NULL;
-
-    event.type = SDL_USEREVENT;
-    event.user = userevent;
-
-    SDL_PushEvent(&event);
-    return(interval);
-}
-
 IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window) {
 
     win = window;
     renderer = ren;
-
-    logo    = NULL;
 
     my_timer_id = -1;
 
@@ -54,23 +28,27 @@ IntroScene::~IntroScene() {
 }
 
 void IntroScene::init() {
-
-
-    logo = IMG_LoadTexture(renderer, IMAGE_INTRO);
+    for(int frame=0;frame<gif->num_frames;frame++)
+    {
+        textures.push_back(SDL_CreateTextureFromSurface(renderer, gif->frames[frame]->surface));
+    }
 }
 
 void IntroScene::close() {
-    SDL_DestroyTexture(logo);
+    for(int frame=0;frame<gif->num_frames;frame++)
+    {
+        SDL_DestroyTexture(textures[frame]);
+    }
 }
 
 int IntroScene::write() {
     int status = SCENE_EXIT;
 
-    my_timer_id = SDL_AddTimer(1000, my_callbackfunc1, 0);
     bool display = false;
 
+    display = true;
+    
     while (true) {
-
         SDL_Event e;
         if ( SDL_PollEvent(&e) ) {
             if (e.type == SDL_QUIT) {
@@ -88,36 +66,37 @@ int IntroScene::write() {
             }
         }
 
-        //SDL_RenderClear(renderer);
+        SDL_RenderClear(renderer);
 
         /* We display after some considerable amount of time */
         if (display) {
 
-            //int w, h;
-            //SDL_QueryTexture(logo, NULL, NULL, &w, &h);
-
-            //float ratio = config->getHeight()/(float)h;
-            //float margin = config->getWidth()/10;
-
-            //SDL_Rect texr; texr.x = margin; texr.y = margin; texr.w = (int)(w*ratio-margin*2.0); texr.h = (int)(h*ratio-margin*2.0);
+            SDL_Rect texr;
+            texr.x = 0;
+            texr.y = 0;
+            texr.h= config->getHeight();
+            texr.w = config->getWidth();
+            texr.h = gif->height;
+            texr.w = gif->width;
 
             static int frame = 0;
 
             frame++;
-            if (frame > gif->num_frames)
+            if (frame >= gif->num_frames)
+            {
                 frame = 0;
+                break;
+            }
 
-            SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, gif->frames[frame]->surface);
+            SDL_Texture* texture = textures[frame];
             
-            SDL_RenderCopy(renderer, texture, NULL, NULL);
+            SDL_RenderCopy(renderer, texture, NULL, &texr);
             SDL_RenderPresent(renderer);
             
-            SDL_DestroyTexture(texture);
+            
             SDL_Delay(gif->frames[frame]->delay);
         }
     }
-
-    SDL_RemoveTimer(my_timer_id);
 
     return status;
 }
