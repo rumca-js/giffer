@@ -27,7 +27,7 @@ MainController::MainController() {
     //config.setHeight(HEIGHT);
 
     window = SDL_CreateWindow(
-        "Keyboard master",
+        "Giffer",
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
         config->getWidth(),
@@ -54,11 +54,12 @@ MainController::MainController() {
 
     setFullScreen();
 
-    machine.load(renderer, window);
+	scene = new IntroScene(renderer, window);
+	scene->init();
 }
 
 MainController::~MainController() {
-	machine.close();
+	scene->close();
 	Mix_CloseAudio();
 
 	SDL_DestroyRenderer(renderer);
@@ -84,7 +85,7 @@ void MainController::setFullScreen() {
 }
 
 void MainController::run() {
-	machine.write();
+	scene->write();
 }
 
 

@@ -3,16 +3,9 @@ BIN := ../game
 
 # source files
 SRCS := \
-  SceneMachine.cpp \
   Utilities.cpp \
-  MainController.cpp \
-  Letter.cpp \
-  GUI/Button.cpp \
-  Scenes/CosmosScene.cpp \
   Scenes/IntroScene.cpp \
-  Scenes/GoodBye.cpp \
-  Scenes/HeavenScene.cpp \
-  Scenes/MenuScene.cpp \
+  MainController.cpp \
   MainConfiguration.cpp \
   SDL_gifwrap.c \
   main.cpp
@@ -53,7 +46,7 @@ CXXFLAGS := -std=c++11
 # C/C++ flags
 CPPFLAGS := -g -Wall -Wextra -pedantic
 # linker flags
-LDFLAGS := -L /usr/lib/x86_64-linux-gnu/
+LDFLAGS := -L /usr/lib/x86_64-linux-gnu/ -L /usr/lib/arm-linux-gnueabihf/
 # linker flags: libraries to link (e.g. -lfoo)
 LDLIBS := -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf -lgif
 # flags required for dependency generation; passed to compilers
@@ -79,6 +72,7 @@ dist: $(DISTFILES)
 .PHONY: clean
 clean:
 	$(RM) -r $(OBJDIR) $(DEPDIR)
+	$(RM) $(BIN)
 
 .PHONY: distclean
 distclean: clean

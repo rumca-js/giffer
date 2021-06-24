@@ -14,7 +14,7 @@
 #include <stdio.h>
 
 #include "MainConfiguration.h"
-#include "SceneMachine.h"
+#include "Scenes/IntroScene.h"
 
 class MainController {
 	/*!
@@ -28,7 +28,7 @@ class MainController {
 	/*!
 	 * \brief Scene state machine.
 	 */
-	SceneMachine machine;
+	IntroScene *scene = NULL;
 	/*!
 	 * \brief Global configuration (for window sizes).
 	 */
