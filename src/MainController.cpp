@@ -60,12 +60,15 @@ MainController::MainController() {
 
 MainController::~MainController() {
 	scene->close();
+
 	Mix_CloseAudio();
+	TTF_Quit();
 
 	SDL_DestroyRenderer(renderer);
 
     SDL_DestroyWindow(window);
     SDL_Quit();
+	delete scene;
 }
 
 void MainController::setFullScreen() {

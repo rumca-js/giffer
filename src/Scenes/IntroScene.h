@@ -15,7 +15,7 @@
 #include "../SceneInterface.h"
 #include "../MainConfiguration.h"
 
-#include "../SDL_gifwrap.h"
+#include "../Images/DrawGif.h"
 
 #define TEXT_LOGO "SLAVE STUDIO 1"
 
@@ -37,8 +37,7 @@ class IntroScene : public SceneInterface {
 	 */
 	SDL_TimerID my_timer_id;
 
-	/*! Gif file */
-	GIF_Image* gif;
+	DrawItem * item;
 	
 	/*! textures */
 	std::vector<SDL_Texture*> textures;

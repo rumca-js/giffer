@@ -18,27 +18,24 @@ IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window) {
 
     my_timer_id = -1;
 
-    gif = GIF_LoadImage("./data/test.gif");
+    item = new DrawGif( std::string("./data/test.gif"), renderer);
 
     config = &MainConfiguration::getConfig();
 }
 
 IntroScene::~IntroScene() {
-    // TODO Auto-generated destructor stub
+	close();
 }
 
 void IntroScene::init() {
-    for(int frame=0;frame<gif->num_frames;frame++)
-    {
-        textures.push_back(SDL_CreateTextureFromSurface(renderer, gif->frames[frame]->surface));
-    }
 }
 
 void IntroScene::close() {
-    for(int frame=0;frame<gif->num_frames;frame++)
-    {
-        SDL_DestroyTexture(textures[frame]);
-    }
+	if (item != NULL)
+	{
+		delete item;
+		item = NULL;
+	}
 }
 
 int IntroScene::write() {
@@ -76,25 +73,13 @@ int IntroScene::write() {
             texr.y = 0;
             texr.h= config->getHeight();
             texr.w = config->getWidth();
-            texr.h = gif->height;
-            texr.w = gif->width;
+            texr.h = item->getHeight();
+            texr.w = item->getWidth();
 
-            static int frame = 0;
+            item->update(100);
+            item->draw(NULL, &texr);
 
-            frame++;
-            if (frame >= gif->num_frames)
-            {
-                frame = 0;
-                break;
-            }
-
-            SDL_Texture* texture = textures[frame];
-            
-            SDL_RenderCopy(renderer, texture, NULL, &texr);
             SDL_RenderPresent(renderer);
-            
-            
-            SDL_Delay(gif->frames[frame]->delay);
         }
     }
 
