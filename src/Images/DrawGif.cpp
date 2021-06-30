@@ -3,10 +3,10 @@
 #include "DrawGif.h"
 
 
-DrawGif::DrawGif(std::string path, SDL_Renderer * aRenderer)
-{
+DrawGif::DrawGif(std::string path, SDL_Renderer * aRenderer) {
     gif = GIF_LoadImage(path.c_str() );
     current_frame = 0;
+    msec_store = 0;
 
     renderer = aRenderer;
 
@@ -16,27 +16,40 @@ DrawGif::DrawGif(std::string path, SDL_Renderer * aRenderer)
     }
 }
 
-DrawGif::~DrawGif()
-{
+DrawGif::~DrawGif() {
     close();
 }
 
-void DrawGif::update(Uint32 msec)
-{
-    ////gif->frames[i]->delay
+void DrawGif::incrementFrame() {
     current_frame++;
+
     if (current_frame >= gif->num_frames)
         current_frame = 0;
 }
 
-void DrawGif::draw(SDL_Rect * SrcR, SDL_Rect * DestR)
-{
+void DrawGif::update(Uint32 msec) {
+    msec_store += msec;
+
+    if (gif->frames[current_frame]->delay == 0)
+        gif->frames[current_frame]->delay = 10;
+
+    while(true) {
+        if (msec_store > gif->frames[current_frame]->delay) {
+            incrementFrame();
+
+            msec_store -= gif->frames[current_frame]->delay
+        }
+        else
+            break;
+    }
+}
+
+void DrawGif::draw(SDL_Rect * SrcR, SDL_Rect * DestR) {
     SDL_Texture* texture = textures[current_frame];
     SDL_RenderCopy(renderer, texture, SrcR, DestR);
 }
 
-void DrawGif::close()
-{
+void DrawGif::close() {
     if (gif != NULL)
     {
         std::cout<< "Closing"<<std::endl;
@@ -50,14 +63,10 @@ void DrawGif::close()
     }
 }
 
-Uint16 DrawGif::getWidth()
-{
-    //return 3;
+Uint16 DrawGif::getWidth() {
     return gif->width;
 }
 
-Uint16 DrawGif::getHeight()
-{
-    //return 3;
+Uint16 DrawGif::getHeight() {
     return gif->height;
 }

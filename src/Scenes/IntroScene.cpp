@@ -76,10 +76,19 @@ int IntroScene::write() {
             texr.h = item->getHeight();
             texr.w = item->getWidth();
 
-            item->update(100);
+            item->update(33.3);
             item->draw(NULL, &texr);
 
             SDL_RenderPresent(renderer);
+
+            // for 30 frames/s
+            // 1 second = 1000msec
+            //
+            // 30 frames      = 1000
+            // 1 frame diplay = x
+            //
+            // x = 1000/30 = 33.3333333(3)
+            SDL_Delay(33.3);
         }
     }
 
