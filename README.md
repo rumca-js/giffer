@@ -1,23 +1,32 @@
 # Overview
 
-Shows that gifs can be displayed in SDL2.
+This program displays some elements on the screen using SDL2.
 
-IntroScene.cpp contains very ugly concept of proof.
+Provides universal wrappers for gifs, textures, letters.
 
 # Build
 
-Makefile
+Makefile is present in the src directory.
+
+To build perform the following actions
+
+```
+cd src
+make
+```
+
+Makefile contains path for x86 libs and for Raspberry PI.
 
 # Implementation
 
-This program is written in SDL2, on Linux Mint.
-
-Uses the following SDL2 libraries:
+Dependencies
  - SDL2
  - SDL2_image
  - SDL2_ttf
  - SDL2_mixer
  - libgif
+
+The install_dependencies.sh provides a script to install dependency libraries.
 
 # License
 GPLv3
