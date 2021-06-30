@@ -24,18 +24,18 @@ IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window) {
 }
 
 IntroScene::~IntroScene() {
-	close();
+    close();
 }
 
 void IntroScene::init() {
 }
 
 void IntroScene::close() {
-	if (item != NULL)
-	{
-		delete item;
-		item = NULL;
-	}
+
+    if (item != NULL) {
+        delete item;
+        item = NULL;
+    }
 }
 
 int IntroScene::write() {

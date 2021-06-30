@@ -28,8 +28,13 @@ DrawText::DrawText(SDL_Renderer *ren, TTF_Font* Sans, std::string input_text) {
 }
 
 DrawText::close() {
-	SDL_FreeSurface(surfaceMessage);
-	SDL_DestroyTexture(Message);
+
+	if (surfaceMessage == NULL) {
+		SDL_FreeSurface(surfaceMessage);
+		SDL_DestroyTexture(Message);
+        surfaceMessage = NULL;
+        Message = NULL;
+	}
 }
 
 void DrawText::display(SDL_Rect * srcRect, SDL_Rect * destRect) {

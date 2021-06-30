@@ -36,7 +36,9 @@ class IntroScene : public SceneInterface {
 	 * Timer for displaying logo.
 	 */
 	SDL_TimerID my_timer_id;
-
+    /*!
+     * Item to draw
+     */
 	DrawItem * item;
 	
 	/*! textures */

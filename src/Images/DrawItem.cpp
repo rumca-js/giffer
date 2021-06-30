@@ -4,25 +4,25 @@
 
 DrawItem::DrawItem()
 {
-	initialized = true;
+    initialized = true;
 }
 
 DrawItem::~DrawItem()
 {
-	close();
+    close();
 }
 
 void DrawItem::close()
 {
-	std::cout << "original close" << std::endl;
+    std::cout << "original close" << std::endl;
 }
 
 Uint16 DrawItem::getWidth()
 {
-	return 1;
+    return 1;
 }
 
 Uint16 DrawItem::getHeight()
 {
-	return 1;
+    return 1;
 }
