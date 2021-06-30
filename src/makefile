@@ -3,7 +3,6 @@ BIN := ../game
 
 # source files
 SRCS := \
-  Utilities.cpp \
   Scenes/IntroScene.cpp \
   MainController.cpp \
   MainConfiguration.cpp \
