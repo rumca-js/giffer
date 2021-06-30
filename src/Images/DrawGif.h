@@ -1,7 +1,13 @@
+#ifndef DRAWGIF_H_
+#define DRAWGIF_H_
+
 #include <vector>
 #include "SDL_gifwrap.h"
 #include "DrawItem.h"
 
+/*!
+ * Drawable GIF item
+ */
 class DrawGif : public DrawItem
 {
     /*!
@@ -46,3 +52,5 @@ class DrawGif : public DrawItem
          */
         void update(Uint32 msec_time);
 };
+
+#endif //DRAWGIF_H_

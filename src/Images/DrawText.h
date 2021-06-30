@@ -10,12 +10,18 @@
 
 #include <SDL2/SDL_ttf.h>
 
+/*!
+ * Drawable text item
+ */
 class DrawText : public DrawItem
 {
 	/*!
 	 * \brief SDL texture for letter.
 	 */
 	SDL_Texture* Message = NULL;
+	/*!
+	 * \brief SDL surface for letter.
+	 */
 	SDL_Surface* surfaceMessage;
 	/*!
 	 * \brief The actual letter that will be displayed.

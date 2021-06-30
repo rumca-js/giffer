@@ -1,12 +1,12 @@
 /*
- * InitScene.h
+ * IntroScene.h
  *
  *  Created on: 11 mar 2018
  *      Author: hunter
  */
 
-#ifndef INITSCENE_H_
-#define INITSCENE_H_
+#ifndef INTROSCENE_H_
+#define INTROSCENE_H_
 
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL.h>
@@ -68,4 +68,4 @@ public:
 
 };
 
-#endif /* INITSCENE_H_ */
+#endif /* INTROSCENE_H_ */
