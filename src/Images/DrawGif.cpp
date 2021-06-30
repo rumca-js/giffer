@@ -37,7 +37,7 @@ void DrawGif::update(Uint32 msec) {
         if (msec_store > gif->frames[current_frame]->delay) {
             incrementFrame();
 
-            msec_store -= gif->frames[current_frame]->delay
+            msec_store -= gif->frames[current_frame]->delay;
         }
         else
             break;

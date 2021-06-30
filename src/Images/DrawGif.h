@@ -51,6 +51,7 @@ class DrawGif : public DrawItem
          * @param msec_time milliseconds of time
          */
         void update(Uint32 msec_time);
+        void incrementFrame();
 };
 
 #endif //DRAWGIF_H_
