@@ -1,6 +1,7 @@
 #ifndef DRAWTEXTURE_H_
 #define DRAWTEXTURE_H_
 
+#include <SDL2/SDL_image.h>
 #include "DrawItem.h"
 
 /*!
@@ -15,6 +16,7 @@ class DrawTexture : public DrawItem
          * Constructs texture
          */
         DrawTexture(std::string path, SDL_Renderer * aRenderer);
+        ~DrawTexture();
         /*!
          * Updates flow of time
          */

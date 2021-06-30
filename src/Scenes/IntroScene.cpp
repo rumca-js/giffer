@@ -7,8 +7,15 @@
 
 #include <iostream>
 #include "IntroScene.h"
+#include "../Images/DrawGif.h"
+#include "../Images/DrawTexture.h"
+#include "../Images/DrawLetter.h"
+#include "../Images/DrawText.h"
 
 #include "../config.h"
+
+#define FONT_SIZE 50
+#define FONT_NAME  "./data/fonts/freefont/FreeSans.ttf"
 
 
 IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window) {
@@ -18,7 +25,13 @@ IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window) {
 
     my_timer_id = -1;
 
-    item = new DrawGif( std::string("./data/test.gif"), renderer);
+	Sans = TTF_OpenFont(FONT_NAME, FONT_SIZE);
+
+    items.push_back(new DrawGif( std::string("./data/test.gif"), renderer));
+    items.push_back(new DrawTexture( std::string("./data/meeting.bmp"), renderer));
+    items.push_back(new DrawTexture( std::string("./data/meeting.jpg"), renderer));
+    items.push_back(new DrawLetter( 'c', renderer, Sans));
+    items.push_back(new DrawText( "test", renderer, Sans));
 
     config = &MainConfiguration::getConfig();
 }
@@ -32,9 +45,12 @@ void IntroScene::init() {
 
 void IntroScene::close() {
 
-    if (item != NULL) {
-        delete item;
-        item = NULL;
+    if (items.size() != 0) {
+		for(int i=0; i<items.size(); i++)
+		{
+			delete items[i];
+		}
+        items.clear();
     }
 }
 
@@ -69,15 +85,21 @@ int IntroScene::write() {
         if (display) {
 
             SDL_Rect texr;
-            texr.x = 0;
-            texr.y = 0;
-            texr.h= config->getHeight();
-            texr.w = config->getWidth();
-            texr.h = item->getHeight();
-            texr.w = item->getWidth();
 
-            item->update(33.3);
-            item->draw(NULL, &texr);
+			for(int i=0; i<items.size(); i++)
+			{
+				texr.x = i*100;
+				texr.y = i*100;
+
+				texr.h= config->getHeight();
+				texr.w = config->getWidth();
+
+				texr.h = items[i]->getHeight();
+				texr.w = items[i]->getWidth();
+
+				items[i]->update(33.3);
+				items[i]->draw(NULL, &texr);
+			}
 
             SDL_RenderPresent(renderer);
 

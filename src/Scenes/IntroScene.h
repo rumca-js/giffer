@@ -15,7 +15,7 @@
 #include "../SceneInterface.h"
 #include "../MainConfiguration.h"
 
-#include "../Images/DrawGif.h"
+#include "../Images/DrawItem.h"
 
 #define TEXT_LOGO "SLAVE STUDIO 1"
 
@@ -39,10 +39,9 @@ class IntroScene : public SceneInterface {
     /*!
      * Item to draw
      */
-	DrawItem * item;
-	
-	/*! textures */
-	std::vector<SDL_Texture*> textures;
+	std::vector<DrawItem *> items;
+
+	TTF_Font* Sans = NULL;
 
 public:
 	/*!

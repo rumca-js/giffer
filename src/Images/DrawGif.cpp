@@ -4,6 +4,9 @@
 
 
 DrawGif::DrawGif(std::string path, SDL_Renderer * aRenderer) {
+
+	std::cout<< "Creating Gif"<<std::endl;
+
     gif = GIF_LoadImage(path.c_str() );
     current_frame = 0;
     msec_store = 0;
@@ -52,7 +55,7 @@ void DrawGif::draw(SDL_Rect * SrcR, SDL_Rect * DestR) {
 void DrawGif::close() {
     if (gif != NULL)
     {
-        std::cout<< "Closing"<<std::endl;
+        std::cout<< "Closing Gif"<<std::endl;
         for(int frame=0;frame<gif->num_frames;frame++)
         {
             SDL_DestroyTexture(textures[frame]);
