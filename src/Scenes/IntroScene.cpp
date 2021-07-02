@@ -30,8 +30,9 @@ IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window) {
     items.push_back(new DrawGif( std::string("./data/test.gif"), renderer));
     items.push_back(new DrawTexture( std::string("./data/meeting.bmp"), renderer));
     items.push_back(new DrawTexture( std::string("./data/meeting.jpg"), renderer));
-    items.push_back(new DrawLetter( 'c', renderer, Sans));
-    items.push_back(new DrawText( "test", renderer, Sans));
+	SDL_Color color = {255, 0, 0, 255};
+    items.push_back(new DrawLetter( 'c', renderer, Sans, color));
+    items.push_back(new DrawText( "test", renderer, Sans, color));
 
     config = &MainConfiguration::getConfig();
 }
@@ -46,7 +47,7 @@ void IntroScene::init() {
 void IntroScene::close() {
 
     if (items.size() != 0) {
-		for(int i=0; i<items.size(); i++)
+		for(unsigned int i=0; i<items.size(); i++)
 		{
 			delete items[i];
 		}
@@ -86,7 +87,7 @@ int IntroScene::write() {
 
             SDL_Rect texr;
 
-			for(int i=0; i<items.size(); i++)
+			for(unsigned int i=0; i<items.size(); i++)
 			{
 				texr.x = i*100;
 				texr.y = i*100;
